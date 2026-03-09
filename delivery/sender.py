@@ -12,7 +12,7 @@ REPORT_URL = os.getenv('REPORT_URL')
 def send_report(narrative="", kpis=None):
     print("📧 Enviando reporte por email...")
 
-    preview = "\n".join(narrative.split("\n")[:15]) if narrative else ""
+    preview = narrative
 
     html_body = f"""
 <html><body style="font-family:Arial,sans-serif;background:#07090f;color:#dde6f0;padding:32px">

@@ -44,7 +44,7 @@ Sé directo, preciso y orientado a decisiones. Sin introducciones genéricas.
         },
         json={
             'model': 'claude-sonnet-4-6',
-            'max_tokens': 1000,
+            'max_tokens': 2000,
             'messages': [{'role': 'user', 'content': prompt}]
         }
     )

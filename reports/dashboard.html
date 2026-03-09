@@ -129,46 +129,50 @@
   <div class="narrative-card">
     <div class="narrative-title">🤖 Análisis Ejecutivo — Generado por IA</div>
     <div class="narrative-body"># REPORTE EJECUTIVO DE PERFORMANCE — E-COMMERCE BRASIL
-**Fecha de análisis:** Datos históricos acumulados | **Analista:** BI Senior
+**Fecha de análisis:** Datos históricos consolidados | **Analista:** BI Senior
 
 ---
 
 ## 1. RESUMEN EJECUTIVO
 
-La operación acumula **USD 19.7M en revenue** con **96,478 órdenes entregadas** y un ticket promedio de **USD 205**, indicando un modelo orientado a compras de valor medio-alto con baja recurrencia (ratio 1:1 entre órdenes y clientes únicos). El spike de **+5,613% en los últimos 7 días** es la señal más crítica del reporte y requiere validación inmediata antes de cualquier decisión estratégica basada en tendencia.
+El negocio acumula **USD 19.8M en revenue** sobre **96.478 órdenes entregadas**, con un ticket promedio de **USD 205** — nivel saludable para el mercado brasileño de e-commerce. El estado de São Paulo concentra el **37.4% del revenue total** (USD 7.4M), confirmando una dependencia geográfica crítica. La variación de +5.612,9% en los últimos 7 días requiere validación inmediata antes de ser interpretada como señal positiva.
 
 ---
 
 ## 2. INSIGHTS CLAVE
 
-- **📦 Concentración de categorías en consumo doméstico y personal:** Las tres categorías líderes —*Bed Bath Table* (USD 1.69M), *Health Beauty* (USD 1.62M) y *Computers & Accessories* (USD 1.55M)— representan productos de reposición periódica o alto valor percibido. Existe una oportunidad clara de **activar programas de recompra y suscripción** en estas categorías para incrementar LTV sin adquisición nueva.
+- 🛏️ **"Bed, Bath & Table" lidera con USD 1.69M**, seguido de cerca por Health & Beauty (USD 1.62M) y Computadores & Accesorios (USD 1.55M). Las tres categorías están dentro de un rango del **8.5% entre sí**, lo que indica un portafolio sin un líder dominante claro — oportunidad para acelerar la categoría con mayor margen unitario.
 
-- **🗺️ São Paulo concentra el 37.5% del revenue total** con 40,501 órdenes, seguido por RJ (13.6%) y MG (11.5%). Los tres estados del Sudeste suman **el 62.6% del negocio**, lo que indica que el resto del territorio nacional (Norte, Nordeste, Centro-Oeste, Sul) está **sub-penetrado y representa el mayor vector de crecimiento geográfico**.
+- 🗺️ **El Top 3 de estados (SP + RJ + MG) concentra el 62.6% del revenue total** con apenas 64.205 órdenes, dejando el 37.4% restante distribuido en 24 estados. Existe un mercado sub-explotado fuera del eje Sudeste con menor costo de adquisición potencial.
 
-- **🎯 El ticket promedio de USD 205 es consistente con las categorías top:** Ninguna de las tres categorías líderes es de compra impulsiva o bajo valor. Esto sugiere que el funnel de conversión probablemente tiene **fricción en etapas de decisión** (comparación, reviews, cuotas), no en descubrimiento.
+- 🎯 **La relación 1:1 entre clientes únicos y órdenes entregadas** (ambos = 96.478) señala que prácticamente **no hay clientes recurrentes en la base histórica** — tasa de recompra cercana a 0%, lo cual es el riesgo de retención más crítico del negocio.
 
 ---
 
-## 3. ALERTAS
+## 3. ⚠️ ALERTAS
 
-> ⚠️ **ALERTA CRÍTICA — Variación +5,613% en 7 días:**
-> Esta cifra es estadísticamente anómala y tiene tres lecturas posibles: **(a)** error en el pipeline de datos o ventana de comparación mal definida, **(b)** evento puntual de alto volumen (campaña, liquidación, fecha estacional) que distorsiona la tendencia real, o **(c)** recuperación desde una base mínima. **No debe usarse como indicador de tendencia hasta auditarse.** Decisiones de inversión o forecast basadas en este número serían de alto riesgo.
+> **ALERTA 1 — Variación semanal de +5.612,9%: dato no confiable**
+La magnitud de este número es estadísticamente anómala. Antes de comunicarlo a stakeholders, se debe verificar: (a) si hubo un evento puntual como una campaña masiva o un *data dump* retroactivo, (b) si existe un error en la ventana de comparación del query base. **Decisiones basadas en este KPI están en pausa hasta su validación.**
 
-> ⚠️ **ALERTA ESTRUCTURAL — Tasa de recompra aparentemente nula:**
-> El match exacto entre clientes únicos (96,478) y órdenes totales (96,478) indica que **ningún cliente habría comprado más de una vez**, lo que es inusual en cualquier e-commerce maduro. Esto puede reflejar un problema real de retención, una limitación en el modelo de datos (deduplicación incorrecta), o que el dataset cubre un período acotado. **Debe investigarse antes de diseñar cualquier estrategia de loyalty.**
+> **ALERTA 2 — Base de clientes sin retención medible**
+Un negocio con USD 19.8M de revenue histórico y 0% de recompra aparente está operando en modo **adquisición pura**, con estructura de costos insostenible a largo plazo. El Lifetime Value (LTV) actual es igual al ticket de primera compra: USD 205.
 
 ---
 
 ## 4. RECOMENDACIONES
 
-**① Lanzar un programa de retención focalizado en las 3 categorías top**
-Dado que *Bed Bath Table* y *Health Beauty* son categorías de reposición natural, implementar **secuencias de email/push con ventanas de recompra personalizadas** (30-90 días post-compra) puede mover la aguja del LTV sin incremento en CAC. Prioridad: clientes de SP y RJ por volumen y logística eficiente.
+**① Lanzar un programa de retención focalizado en el Top 20% de clientes por valor**
+Segmentar los clientes con ticket > USD 300 (estimado top quintil) e implementar campañas de reactivación vía email/WhatsApp en un plazo de **30 días**. Un incremento del 10% en tasa de recompra sobre esta base impactaría el revenue en ~USD 200K adicionales sin costo de adquisición.
 
-**② Desarrollar una estrategia de expansión regional hacia Nordeste y Sul**
-Con el Sudeste ya maduro (62.</div>
+**② Ejecutar expansión geográfica hacia estados Nordeste con demanda comprobada**
+Estados como **BA, CE y PE** tienen masa crítica poblacional y costos logísticos decrecientes post-inversión en infraestrutura de Mercado Libre/VTEX. Proponer un **piloto de 90 días** con campañas geolocalizadas en estas regiones, midiendo CAC vs. ticket promedio local como criterio de escalado.
+
+---
+
+*📌 Próximo paso recomendado: sesión de 30 min con el equipo de Data Engineering para auditar la métrica de variación semanal y confirmar la lógica de cálculo de clientes únicos por período.*</div>
   </div>
 
-  <footer>NEXUS BI AGENT · Reporte generado automáticamente · 2026-03-09 16:16</footer>
+  <footer>NEXUS BI AGENT · Reporte generado automáticamente · 2026-03-09 17:19</footer>
 </div>
 
 <script>
