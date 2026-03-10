@@ -4,7 +4,7 @@ import json
 import pandas as pd # type: ignore
 
 DB_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'processed', 'nexus_bi.db')
-OUTPUT  = os.path.join(os.path.dirname(__file__), '..', 'reports', 'dashboard.html')
+OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'index.html')
 
 def load_data():
     conn = sqlite3.connect(DB_PATH)
