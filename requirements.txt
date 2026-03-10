@@ -1,0 +1,6 @@
+anthropic
+pandas
+plotly
+python-dotenv
+resend
+requests
