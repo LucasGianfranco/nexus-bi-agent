@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS BI — Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090f; --s1: #0e1117; --s2: #151c27;
+  --border: #1e2d3d; --cyan: #00e5ff; --green: #22d3a0;
+  --amber: #fbbf24; --purple: #8b5cf6; --text: #dde6f0; --muted: #556070;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(0,229,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* HEADER */
+header {
+  padding: 16px 32px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  position: relative; z-index: 1;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.brand-name {
+  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800;
+  background: linear-gradient(90deg, var(--cyan), #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.status { display: flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--green); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* MAIN LAYOUT */
+.main { display: flex; flex: 1; overflow: hidden; position: relative; z-index: 1; }
+
+/* SIDEBAR */
+.sidebar { width: 260px; border-right: 1px solid var(--border); padding: 24px 16px; display: flex; flex-direction: column; gap: 8px; }
+.sidebar-title { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; padding: 0 8px; }
+.suggestion {
+  padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--s1); font-size: 12px; color: var(--muted);
+  cursor: pointer; transition: all .2s;
+}
+.suggestion:hover { border-color: var(--cyan); color: var(--text); background: var(--s2); }
+
+/* CHAT */
+.chat-area { flex: 1; display: flex; flex-direction: column; }
+.messages { flex: 1; overflow-y: auto; padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+
+.msg { display: flex; gap: 12px; max-width: 800px; }
+.msg.user { flex-direction: row-reverse; align-self: flex-end; }
+.msg-avatar {
+  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.msg.agent .msg-avatar { background: linear-gradient(135deg, var(--cyan), var(--purple)); }
+.msg.user .msg-avatar { background: var(--s2); border: 1px solid var(--border); }
+.msg-content { display: flex; flex-direction: column; gap: 6px; }
+.msg-bubble {
+  padding: 12px 16px; border-radius: 12px; font-size: 13px; line-height: 1.6;
+}
+.msg.agent .msg-bubble { background: var(--s1); border: 1px solid var(--border); border-top-left-radius: 4px; }
+.msg.user .msg-bubble { background: var(--s2); border: 1px solid var(--border); border-top-right-radius: 4px; color: var(--text); }
+.msg-time { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); padding: 0 4px; }
+.msg.user .msg-time { text-align: right; }
+
+.kpi-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.kpi-chip {
+  background: var(--s2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; font-size: 11px;
+}
+.kpi-chip-label { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }
+.kpi-chip-value { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; }
+.cyan { color: var(--cyan); } .green { color: var(--green); } .amber { color: var(--amber); }
+
+.action-btns { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.btn {
+  padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  cursor: pointer; border: none; transition: all .2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+.btn-secondary { background: var(--s2); border: 1px solid var(--border); color: var(--text); }
+.btn:hover { opacity: .85; transform: translateY(-1px); }
+
+/* LOADING */
+.typing { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: typing .8s infinite; }
+.typing span:nth-child(2) { animation-delay: .15s; }
+.typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes typing { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
+
+/* INPUT */
+.input-area { padding: 20px 32px; border-top: 1px solid var(--border); }
+.input-wrap {
+  display: flex; gap: 12px; align-items: flex-end;
+  background: var(--s1); border: 1px solid var(--border);
+  border-radius: 12px; padding: 12px 16px; transition: border-color .2s;
+}
+.input-wrap:focus-within { border-color: var(--cyan); }
+textarea {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px;
+  resize: none; max-height: 120px; line-height: 1.5;
+}
+textarea::placeholder { color: var(--muted); }
+.send-btn {
+  width: 36px; height: 36px; border-radius: 8px; border: none;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  color: #000; cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; flex-shrink: 0;
+}
+.send-btn:hover { opacity: .85; transform: scale(1.05); }
+.send-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+.input-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 8px; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">⬡</div>
+    <span class="brand-name">NEXUS BI AGENT</span>
+  </div>
+  <div class="status">
+    <div class="status-dot"></div>
+    Agente activo · E-Commerce Demo
+  </div>
+</header>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-title">Consultas frecuentes</div>
+    <div class="suggestion" onclick="fillInput(this)">📊 Reporte ejecutivo completo</div>
+    <div class="suggestion" onclick="fillInput(this)">📈 Análisis de revenue semanal</div>
+    <div class="suggestion" onclick="fillInput(this)">🏆 Top productos por revenue</div>
+    <div class="suggestion" onclick="fillInput(this)">🗺️ Revenue por región</div>
+    <div class="suggestion" onclick="fillInput(this)">⚠️ Alertas y anomalías</div>
+    <div class="suggestion" onclick="fillInput(this)">📧 Enviar reporte al email</div>
+  </div>
+
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <div class="msg agent">
+        <div class="msg-avatar">⬡</div>
+        <div class="msg-content">
+          <div class="msg-bubble">
+            Hola. Soy el <strong style="color:var(--cyan)">NEXUS BI Agent</strong>.<br><br>
+            Tengo acceso completo a tu base de datos de e-commerce. Podés pedirme cualquier análisis en lenguaje natural — lo proceso, genero el dashboard y te lo mando al email automáticamente.<br><br>
+            ¿Qué querés analizar hoy?
+          </div>
+          <div class="msg-time">Ahora</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-wrap">
+        <textarea id="userInput" placeholder="Ej: Generame el reporte de revenue con foco en retención de clientes..." rows="1"
+          onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">→</button>
+      </div>
+      <div class="input-hint">Enter para enviar · Shift+Enter para nueva línea</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const messages = document.getElementById('messages');
+const input = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function fillInput(el) {
+  input.value = el.textContent.replace(/^[^\s]+\s/, '');
+  input.focus();
+}
+
+function getTime() {
+  return new Date().toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'});
+}
+
+function addMessage(role, content) {
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const avatar = role === 'agent' ? '⬡' : '👤';
+  div.innerHTML = `
+    <div class="msg-avatar">${avatar}</div>
+    <div class="msg-content">
+      <div class="msg-bubble">${content}</div>
+      <div class="msg-time">${getTime()}</div>
+    </div>`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+
+function addTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg agent';
+  div.id = 'typing';
+  div.innerHTML = `
+    <div class="msg-avatar">⬡</div>
+    <div class="msg-content">
+      <div class="msg-bubble">
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+    </div>`;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage('user', text);
+  input.value = '';
+  input.style.height = 'auto';
+  sendBtn.disabled = true;
+  addTyping();
+
+  try {
+    const res = await fetch('/generate', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message: text})
+    });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+
+    if (data.status === 'ok') {
+      const kpis = data.kpis;
+      const preview = data.narrative.split('\n').slice(0,8).join('\n');
+      const content = `
+        <p style="margin-bottom:12px">${data.narrative}</p>
+        <div class="kpi-row">
+          <div class="kpi-chip">
+            <div class="kpi-chip-label">Revenue</div>
+            <div class="kpi-chip-value cyan">$${Number(kpis.total_revenue).toLocaleString('es-AR', {maximumFractionDigits:0})}</div>
+          </div>
+          <div class="kpi-chip">
+            <div class="kpi-chip-label">Órdenes</div>
+            <div class="kpi-chip-value green">${Number(kpis.total_orders).toLocaleString('es-AR')}</div>
+          </div>
+          <div class="kpi-chip">
+            <div class="kpi-chip-label">Ticket prom.</div>
+            <div class="kpi-chip-value amber">$${Number(kpis.avg_ticket).toFixed(2)}</div>
+          </div>
+        </div>
+        <div class="action-btns">
+          <a href="${data.dashboard_url}" target="_blank" class="btn btn-primary">📊 Ver Dashboard</a>
+          <span class="btn btn-secondary">📧 Email enviado</span>
+        </div>`;
+      addMessage('agent', content);
+    } else {
+      addMessage('agent', `❌ Error: ${data.message}`);
+    }
+  } catch(e) {
+    document.getElementById('typing')?.remove();
+    addMessage('agent', '❌ Error de conexión. Intentá de nuevo.');
+  }
+  sendBtn.disabled = false;
+}
+</script>
+</body>
+</html>

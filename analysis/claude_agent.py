@@ -6,7 +6,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 API_KEY = os.getenv('ANTHROPIC_API_KEY')
 
-def generate_narrative(kpis, top_products, top_states):
+def generate_narrative(kpis, top_products, top_states, user_message=""):
     print("🤖 Generando narrativa con Claude...")
 
     prompt = f"""
@@ -31,6 +31,8 @@ Estructura tu análisis así:
 2. INSIGHTS CLAVE (3 bullets con hallazgos accionables)
 3. ALERTAS (1-2 puntos de atención o riesgos detectados)
 4. RECOMENDACIONES (2 acciones concretas para el negocio)
+
+{f'El CFO ha solicitado específicamente: {user_message}. Enfocá el análisis en responder esa pregunta.' if user_message else ''}
 
 Sé directo, preciso y orientado a decisiones. Sin introducciones genéricas.
 """

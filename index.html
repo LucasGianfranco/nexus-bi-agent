@@ -128,51 +128,51 @@
 
   <div class="narrative-card">
     <div class="narrative-title">🤖 Análisis Ejecutivo — Generado por IA</div>
-    <div class="narrative-body"># REPORTE EJECUTIVO — E-COMMERCE BRASIL
-**Fecha de análisis:** Datos históricos consolidados | **Analista:** BI Senior
+    <div class="narrative-body"># REPORTE EJECUTIVO DE PERFORMANCE — E-COMMERCE BRASIL
+**Fecha de análisis:** Período histórico acumulado | **Solicitante:** CFO
 
 ---
 
-## 1. 📊 RESUMEN EJECUTIVO
+## 1. RESUMEN EJECUTIVO
 
-La operación acumula **$19.8M en revenue** con **96,478 órdenes entregadas** y un ticket promedio de **$204.98**, indicando una base de clientes de compra única predominante (ratio 1:1 entre clientes y órdenes). La señal más crítica del período es el **crecimiento del 5,612.9% en los últimos 7 días**, que requiere validación inmediata antes de interpretarse como tendencia positiva. La concentración geográfica en SP (**37.4% del revenue total**) representa tanto el principal motor de crecimiento como el mayor riesgo de dependencia.
-
----
-
-## 2. 💡 INSIGHTS CLAVE
-
-- **🛏️ El hogar domina el consumo:** Las categorías *Bed Bath Table* ($1.69M) y *Health & Beauty* ($1.62M) concentran el **16.8% del revenue total** combinadas, señalando un consumidor orientado a bienestar y hogar — segmento con alto potencial de recompra y cross-selling.
-
-- **💻 Tech subestimado:** *Computers & Accessories* ($1.55M, #3) opera con tickets probablemente superiores al promedio global. Si su volumen de órdenes es menor que las categorías superiores, su **valor por transacción es el más alto del portfolio** — activo estratégico desaprovechado en términos de inversión publicitaria.
-
-- **🗺️ El triángulo SP-RJ-MG es el negocio real:** Estos 3 estados generan **$12.37M = 62.6% del revenue total** con 64,205 órdenes (66.5% del volumen). El resto del país aporta solo 37.4% del revenue con potencial de expansión prácticamente intacto.
+El negocio acumula **USD 19.8M en revenue** sobre **96,478 órdenes entregadas**, con un ticket promedio sólido de **USD 205** y una base de clientes que replica exactamente el volumen de órdenes, sugiriendo **baja recurrencia de compra**. La concentración geográfica es marcada: **São Paulo representa el 37.4% del revenue total**, con los 3 estados principales capturando el **62% del negocio**. La variación de +5,612% en los últimos 7 días requiere validación inmediata antes de cualquier decisión basada en ese dato.
 
 ---
 
-## 3. 🚨 ALERTAS
+## 2. INSIGHTS CLAVE
 
-> **⚠️ ALERTA CRÍTICA — Variación 7 días +5,612.9%**
-> Una variación de esta magnitud **no es orgánica bajo circunstancias normales**. Antes de celebrar, validar: *(a)* error en el pipeline de datos o ventana temporal mal calculada, *(b)* evento puntual no recurrente (campaña Black Friday, liquidación masiva), *(c)* ingesta de datos históricos cargados retroactivamente. **Decisión incorrecta basada en este dato puede llevar a sobreinversión en marketing o proyecciones de forecast severamente infladas.**
+- 🛏️ **Las categorías de alto valor del hogar y bienestar dominan el mix de revenue:** `Bed/Bath/Table` (USD 1.69M), `Health & Beauty` (USD 1.62M) y `Computers & Accessories` (USD 1.55M) están prácticamente empatadas en el top 3, con una diferencia de apenas **USD 143K entre el 1° y el 3°**. Ninguna categoría tiene posición dominante clara, lo que indica oportunidad de consolidar liderazgo en al menos una.
 
-> **⚠️ Tasa de recompra aparentemente nula**
-> El ratio exacto 1:1 entre clientes únicos y órdenes (96,478 / 96,478) sugiere **cero retención de clientes** o un problema en la metodología de identificación de usuarios. Una base sin recompra implica que el 100% del crecimiento depende de adquisición nueva — el modelo más costoso y frágil.
+- 🔁 **La ratio Clientes Únicos / Órdenes = 1:1 es una señal crítica de ausencia de retención:** Con 96,478 clientes y exactamente 96,478 órdenes, el modelo opera como **motor de adquisición puro**, sin recurrencia medible. Dado que el CAC en e-commerce es estructuralmente más caro que el costo de retención, este patrón erosiona márgenes en el largo plazo.
 
----
-
-## 4. 🎯 RECOMENDACIONES
-
-**① Activar programa de retención antes del próximo ciclo de inversión en adquisición**
-Con ticket promedio de $204.98 y aparente tasa de recompra ~0%, incrementar la retención en un **10% generaría ~$2M adicionales sin costo de adquisición**. Implementar secuencia de email post-compra (día 7, 30, 60) con ofertas de categorías complementarias, priorizando el segmento *Bed Bath Table* + *Health & Beauty* por su perfil de consumo recurrente natural.
-
-**② Desarrollar estrategia de expansión regional con foco en estados Tier-2**
-MG ya muestra tracción ($2.28M, 11,354 órdenes). Estados como PR, BA y RS tienen masa crítica de población pero baja representación en el revenue actual. **Redirigir 15-20% del presupuesto de paid media de SP hacia estos mercados** puede diversificar riesgo de concentración y capturar demanda reprimida con CPAs inicialmente más bajos por menor competencia.
+- 🗺️ **São Paulo es el motor, pero Minas Gerais muestra la mejor eficiencia relativa:** SP lidera con USD 7.4M (40,501 órdenes), pero MG genera USD 2.28M con 11,354 órdenes — un ticket implícito de **USD 201 vs USD 183 de RJ**, posicionándolo como mercado con potencial de expansión subexplotado.
 
 ---
 
-*📌 Prioridad inmediata: Auditar el dato de variación 7 días con el equipo de Data Engineering antes de presentar este reporte a directivos.*</div>
+## 3. ALERTAS
+
+> ⚠️ **ALERTA 1 — Variación semanal de +5,612%: dato no operacionalmente válido**
+La cifra de crecimiento de los últimos 7 días es estadísticamente anómala y **no debe usarse para toma de decisiones** sin auditoría previa. Las causas más probables son: comparación contra período con datos incompletos, error en el pipeline ETL, o evento puntual (promoción, spike de carga de datos). **Recomiendo frenar cualquier reporte que cite este número hasta validar la fuente.**
+
+> ⚠️ **ALERTA 2 — Hiperdependencia geográfica en 3 estados**
+El 62% del revenue concentrado en SP, RJ y MG expone al negocio a **riesgo sistémico regional**: shocks económicos locales, competidores con foco en esas plazas o disrupciones logísticas en el eje sudeste pueden impactar de forma desproporcionada el P&L. Los 24 estados restantes representan un mercado potencial significativamente subatendido.
+
+---
+
+## 4. RECOMENDACIONES
+
+**① Lanzar un programa de segunda compra en los próximos 60 días**
+Dado el ratio 1:1 entre clientes y órdenes, la palanca de mayor ROI inmediato es activar recurrencia en la base existente. Implementar una secuencia de email/push a los 15, 30 y 45 días post-compra con ofertas personalizadas por categoría (priorizando `Health & Beauty` por su naturaleza consumible) puede generar **revenue incremental sin costo de adquisición**. Objetivo: llevar el índice de repetición al 15% en 90 días.
+
+**② Definir una estrategia de expansión hacia estados Tier-2 con foco en MG como piloto**
+Antes de invertir en nuevas regiones sin datos, **Minas Gerais es el laboratorio natural**: ya tiene volumen relevante (11,354 órdenes), ticket competitivo y tracción probada. Aumentar la inversión en paid media y capacidad logística en MG permite testear el modelo de expansión con riesgo controlado, antes de replicarlo en estados como PR, BA o RS.
+
+---
+
+*Análisis elaborado sobre datos históricos acumulados. La métrica de variación semanal requiere validación de datos antes de su uso en reportes oficiales.*</div>
   </div>
 
-  <footer>NEXUS BI AGENT · Reporte generado automáticamente · 2026-03-09 17:29</footer>
+  <footer>NEXUS BI AGENT · Reporte generado automáticamente · 2026-03-11 11:31</footer>
 </div>
 
 <script>
