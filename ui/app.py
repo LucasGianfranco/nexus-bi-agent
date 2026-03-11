@@ -1,6 +1,6 @@
 import os
 import sys
-from flask import Flask, render_template, request, jsonify # type: ignore
+from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -14,12 +14,9 @@ app = Flask(__name__)
 def process_request(user_message):
     import requests as req
     from kpis import get_kpis
-    from generator import generate_dashboard
-    from sender import send_report
 
     kpis, revenue_daily, top_products, top_states = get_kpis()
 
-    # Respuesta conversacional específica
     API_KEY = os.getenv('ANTHROPIC_API_KEY')
     prompt = f"""
 Sos un agente de Business Intelligence con acceso a datos reales de e-commerce brasileño.
@@ -53,13 +50,6 @@ Usá los datos reales. No uses markdown ni bullets. Hablá como un analista seni
         }
     )
     conversational_response = response.json()['content'][0]['text']
-
-    # Dashboard y email en background
-    from claude_agent import generate_narrative
-    narrative = generate_narrative(kpis, top_products, top_states, user_message)
-    generate_dashboard(narrative)
-    send_report(narrative, kpis)
-
     return conversational_response, kpis
 
 @app.route('/')
@@ -71,13 +61,39 @@ def generate():
     data = request.json
     message = data.get('message', '')
     try:
-        narrative, kpis = process_request(message)
+        response, kpis = process_request(message)
         return jsonify({
             'status': 'ok',
-            'narrative': narrative,
+            'response': response,
             'kpis': kpis,
             'dashboard_url': os.getenv('REPORT_URL')
         })
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/send-email', methods=['POST'])
+def send_email():
+    try:
+        from kpis import get_kpis
+        from claude_agent import generate_narrative
+        from sender import send_report
+        kpis, revenue_daily, top_products, top_states = get_kpis()
+        narrative = generate_narrative(kpis, top_products, top_states)
+        send_report(narrative, kpis)
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/generate-dashboard', methods=['POST'])
+def generate_dash():
+    try:
+        from kpis import get_kpis
+        from claude_agent import generate_narrative
+        from generator import generate_dashboard
+        kpis, revenue_daily, top_products, top_states = get_kpis()
+        narrative = generate_narrative(kpis, top_products, top_states)
+        generate_dashboard(narrative)
+        return jsonify({'status': 'ok', 'url': os.getenv('REPORT_URL')})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 

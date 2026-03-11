@@ -250,29 +250,13 @@ async function sendMessage() {
     document.getElementById('typing')?.remove();
 
     if (data.status === 'ok') {
-      const kpis = data.kpis;
-      const preview = data.narrative.split('\n').slice(0,8).join('\n');
       const content = `
-        <p style="margin-bottom:12px">${data.narrative}</p>
-        <div class="kpi-row">
-          <div class="kpi-chip">
-            <div class="kpi-chip-label">Revenue</div>
-            <div class="kpi-chip-value cyan">$${Number(kpis.total_revenue).toLocaleString('es-AR', {maximumFractionDigits:0})}</div>
-          </div>
-          <div class="kpi-chip">
-            <div class="kpi-chip-label">Órdenes</div>
-            <div class="kpi-chip-value green">${Number(kpis.total_orders).toLocaleString('es-AR')}</div>
-          </div>
-          <div class="kpi-chip">
-            <div class="kpi-chip-label">Ticket prom.</div>
-            <div class="kpi-chip-value amber">$${Number(kpis.avg_ticket).toFixed(2)}</div>
-          </div>
-        </div>
-        <div class="action-btns">
-          <a href="${data.dashboard_url}" target="_blank" class="btn btn-primary">📊 Ver Dashboard</a>
-          <span class="btn btn-secondary">📧 Email enviado</span>
-        </div>`;
-      addMessage('agent', content);
+  ${data.response}<br><br>
+  <div class="action-btns">
+    <button class="btn btn-secondary" onclick="generateDashboard(this)">📊 Ver Dashboard</button>
+    <button class="btn btn-secondary" onclick="sendEmail(this)">📧 Enviar al email</button>
+  </div>`;
+  addMessage('agent', content);
     } else {
       addMessage('agent', `❌ Error: ${data.message}`);
     }
@@ -281,6 +265,24 @@ async function sendMessage() {
     addMessage('agent', '❌ Error de conexión. Intentá de nuevo.');
   }
   sendBtn.disabled = false;
+}
+async function generateDashboard(btn) {
+  btn.textContent = '⏳ Generando...';
+  btn.disabled = true;
+  const res = await fetch('/generate-dashboard', {method:'POST'});
+  const data = await res.json();
+  if (data.status === 'ok') {
+    btn.textContent = '✅ Dashboard listo';
+    window.open(data.url, '_blank');
+  }
+}
+
+async function sendEmail(btn) {
+  btn.textContent = '⏳ Enviando...';
+  btn.disabled = true;
+  const res = await fetch('/send-email', {method:'POST'});
+  const data = await res.json();
+  btn.textContent = data.status === 'ok' ? '✅ Email enviado' : '❌ Error';
 }
 </script>
 </body>
