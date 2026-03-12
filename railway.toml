@@ -2,4 +2,4 @@
 builder = "NIXPACKS"
 
 [deploy]
-startCommand = "flask --app ui/app.py run --host=0.0.0.0 --port=8080"
+startCommand = "python -m flask --app ui/app.py run --host=0.0.0.0 --port=8080"
