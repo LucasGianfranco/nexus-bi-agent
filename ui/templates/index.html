@@ -253,7 +253,7 @@ async function sendMessage() {
       const content = `
   ${data.response}<br><br>
   <div class="action-btns">
-    <button class="btn btn-secondary" onclick="generateDashboard(this)">📊 Ver Dashboard</button>
+    <a href="https://lucasgianfranco.github.io/nexus-bi-agent" target="_blank" class="btn btn-secondary">📊 Ver Dashboard</a>
     <button class="btn btn-secondary" onclick="sendEmail(this)">📧 Enviar al email</button>
   </div>`;
   addMessage('agent', content);
