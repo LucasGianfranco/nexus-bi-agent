@@ -50,7 +50,10 @@ Usá los datos reales. No uses markdown ni bullets. Hablá como un analista seni
             'messages': [{'role': 'user', 'content': prompt}]
         }
     )
-    conversational_response = response.json()['content'][0]['text']
+    print(f"STATUS: {response.status_code}")
+    print(f"RESPONSE: {response.text[:200]}")
+    result = response.json()
+    conversational_response = result['content'][0]['text']
     return conversational_response, kpis
 
 @app.route('/')
