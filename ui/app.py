@@ -39,6 +39,7 @@ Usá los datos reales. No uses markdown ni bullets. Hablá como un analista seni
     response = req.post(
         'https://api.anthropic.com/v1/messages',
         headers={
+            print(f"DEBUG API_KEY: {API_KEY[:10] if API_KEY else 'NONE'}")
             'x-api-key': API_KEY,
             'anthropic-version': '2023-06-01',
             'content-type': 'application/json',
