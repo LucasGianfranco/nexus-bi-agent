@@ -1,10 +1,11 @@
 import os
 import sys
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify # type: ignore
 from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
+API_KEY = os.environ.get('ANTHROPIC_API_KEY') or os.getenv('ANTHROPIC_API_KEY')
 sys.path.append(os.path.join(BASE_DIR, 'analysis'))
 sys.path.append(os.path.join(BASE_DIR, 'reports'))
 sys.path.append(os.path.join(BASE_DIR, 'delivery'))
@@ -17,7 +18,7 @@ def process_request(user_message):
 
     kpis, revenue_daily, top_products, top_states = get_kpis()
 
-    API_KEY = os.getenv('ANTHROPIC_API_KEY')
+    API_KEY = os.environ.get('ANTHROPIC_API_KEY')
     prompt = f"""
 Sos un agente de Business Intelligence con acceso a datos reales de e-commerce brasileño.
 
@@ -39,7 +40,6 @@ Usá los datos reales. No uses markdown ni bullets. Hablá como un analista seni
     response = req.post(
         'https://api.anthropic.com/v1/messages',
         headers={
-            print(f"DEBUG API_KEY: {API_KEY[:10] if API_KEY else 'NONE'}")
             'x-api-key': API_KEY,
             'anthropic-version': '2023-06-01',
             'content-type': 'application/json',
