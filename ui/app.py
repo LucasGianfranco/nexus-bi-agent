@@ -14,9 +14,11 @@ app = Flask(__name__)
 
 def process_request(user_message):
     import requests as req
-    from kpis import get_kpis
-
-    kpis, revenue_daily, top_products, top_states = get_kpis()
+    from kpis import get_kpis, get_kpis_from_postgres
+    try:
+        kpis, revenue_daily, top_products, top_states = get_kpis_from_postgres()
+    except:
+        kpis, revenue_daily, top_products, top_states = get_kpis()
 
     API_KEY = os.environ.get('ANTHROPIC_API_KEY')
     prompt = f"""
@@ -81,7 +83,10 @@ def send_email():
         from kpis import get_kpis
         from claude_agent import generate_narrative
         from sender import send_report
-        kpis, revenue_daily, top_products, top_states = get_kpis()
+        try:
+            kpis, revenue_daily, top_products, top_states = get_kpis_from_postgres()
+        except:
+            kpis, revenue_daily, top_products, top_states = get_kpis()
         narrative = generate_narrative(kpis, top_products, top_states)
         send_report(narrative, kpis)
         return jsonify({'status': 'ok'})
@@ -94,7 +99,10 @@ def generate_dash():
         from kpis import get_kpis
         from claude_agent import generate_narrative
         from generator import generate_dashboard
-        kpis, revenue_daily, top_products, top_states = get_kpis()
+        try:
+            kpis, revenue_daily, top_products, top_states = get_kpis_from_postgres()
+        except:
+            kpis, revenue_daily, top_products, top_states = get_kpis()
         narrative = generate_narrative(kpis, top_products, top_states)
         generate_dashboard(narrative)
         return jsonify({'status': 'ok', 'url': os.getenv('REPORT_URL')})
