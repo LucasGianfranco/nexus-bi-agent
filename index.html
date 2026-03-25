@@ -129,48 +129,50 @@
   <div class="narrative-card">
     <div class="narrative-title">🤖 Análisis Ejecutivo — Generado por IA</div>
     <div class="narrative-body"># 📊 REPORTE EJECUTIVO — E-COMMERCE BRASIL
-**Fecha de análisis:** Datos históricos consolidados
+**Generado para:** Dirección Comercial | **Período:** Histórico + Últimos 7 días
 
 ---
 
 ## 1. RESUMEN EJECUTIVO
 
-El negocio acumula **$19.8M en revenue** sobre **96,478 órdenes entregadas**, con un ticket promedio saludable de **$204.98 USD**. El estado de São Paulo concentra el **37.4% del revenue total** ($7.4M), evidenciando una dependencia geográfica crítica. La variación de +5,612.9% en los últimos 7 días requiere validación inmediata antes de ser interpretada como crecimiento real.
+El negocio acumula **$19.8M en revenue** con **96,478 órdenes entregadas** y un ticket promedio de **$204.98**, indicando una base sólida de transacciones de valor medio-alto. La variación de **+5,612.9% en los últimos 7 días** representa una señal de recuperación o reactivación extraordinaria que requiere validación inmediata antes de considerarse tendencia. La concentración geográfica en São Paulo (**37.4% del revenue total**) expone al negocio a un riesgo de dependencia regional significativo.
 
 ---
 
 ## 2. INSIGHTS CLAVE
 
-- 🛏️ **Las 3 categorías top (Hogar, Salud/Belleza, Tecnología) representan $4.86M combinados (~24.6% del revenue total)**, con distribución relativamente equilibrada entre ellas (~$70K de diferencia entre la #1 y #3), lo que indica un portafolio sin dependencia excesiva de una sola categoría.
+- 🛏️ **Hogar lidera con ventaja clara:** `Bed, Bath & Table` encabeza el revenue con **$1.69M**, superando a `Health & Beauty` ($1.62M) por apenas $72K — una brecha mínima que indica competencia directa entre categorías y potencial de rotación en el podio con mínimas variaciones de demanda.
 
-- 🗺️ **SP + RJ + MG concentran el 62.6% del revenue total** con solo 3 estados sobre los 27 existentes, sugiriendo un mercado con alto potencial de expansión geográfica en el nordeste y sur del país aún subexplotados.
+- 🗺️ **SP concentra más que RJ + MG juntos:** São Paulo genera **$7.4M** versus los **$4.97M** combinados de los dos siguientes estados. La relación órdenes/revenue es consistente, descartando distorsión por ticket atípico — es volumen real y sostenido.
 
-- 👤 **La métrica "clientes únicos = órdenes totales" (ambas en 96,478) indica una tasa de recompra cercana a 0**, lo que significa que prácticamente cada cliente compró exactamente una vez — el negocio está operando casi exclusivamente con adquisición de nuevos clientes.
+- 💳 **Ticket promedio de $205 sugiere categorías premium sin explotar:** El valor por orden es competitivo para e-commerce regional, pero `Computers & Accessories` ($1.55M en tercer lugar) indica que hay demanda de alto valor unitario que podría escalarse con estrategias de upselling dirigidas.
 
 ---
 
 ## 3. ⚠️ ALERTAS
 
-- 🚨 **ALERTA DATOS — Variación 7 días (+5,612.9%):** Esta cifra es estadísticamente anómala. Con alta probabilidad refleja un error en el período base de comparación (denominador cercano a cero), una migración de datos o un evento puntual no recurrente. **No debe usarse para proyecciones sin auditoría previa del pipeline.**
+> **🚨 ALERTA 1 — Variación del +5,612.9% no es orgánica por definición**
+> Un crecimiento de esta magnitud en 7 días es estadísticamente atípico. Las causas más probables son: reingesta de datos históricos mal etiquetada temporalmente, un evento puntual (liquidación, campaña masiva) o un error en el pipeline de métricas. **Tomar esta cifra como KPI de performance sin auditar es un riesgo de decisión crítico.**
 
-- 🔴 **RETENCIÓN CRÍTICA — Tasa de recompra ~0%:** Un negocio donde cada cliente compra una sola vez es estructuralmente frágil: el crecimiento depende 100% de adquisición. El CAC sostenido sin LTV incremental comprime los márgenes operativos con el tiempo.
+> **⚠️ ALERTA 2 — Relación clientes únicos = órdenes totales (96,478)**
+> La coincidencia exacta entre ambas métricas sugiere que cada cliente realizó exactamente **1 orden promedio**, indicando una tasa de recompra prácticamente nula o un problema en la lógica de deduplicación de clientes. Ambos escenarios son críticos: el primero implica ausencia de fidelización; el segundo, datos poco confiables.
 
 ---
 
 ## 4. RECOMENDACIONES
 
-**① Lanzar programa de retención focalizado en los primeros 90 días post-compra**
-Dado que la base de 96,478 clientes no muestra recompra, implementar una secuencia de email/push con ofertas personalizadas en las categorías top (Hogar y Salud/Belleza tienen alto potencial de consumo recurrente). **Objetivo realista: llevar la tasa de segunda compra al 15-20% en 6 meses**, lo que generaría ~14,000–19,000 órdenes incrementales sin incremento de CAC.
+**▶ ACCIÓN 1 — Auditar el pipeline antes de escalar inversión en marketing**
+Prioridad inmediata: cruzar la variación del +5,612.9% contra logs de transacciones reales y fechas de ingesta. Si se confirma como crecimiento genuino, capitalizar con presupuesto incremental en paid media. Si es un artefacto de datos, corregir la lógica de ventana temporal antes de que contamine reportes de performance a dirección.
 
-**② Ejecutar estrategia de expansión geográfica hacia estados del Nordeste (BA, PE, CE)**
-Con SP/RJ/MG saturando el foco comercial, estados como Bahía, Pernambuco y Ceará representan mercados de clase media en crecimiento con infraestructura logística mejorada. Recomiendo un **piloto de 90 días con campañas geo-segmentadas y análisis de tiempo de entrega vs. churn** para validar viabilidad antes de escalar presupuesto.
+**▶ ACCIÓN 2 — Lanzar programa de retención focalizado en SP con cross-sell entre Top 3 categorías**
+Dado que SP concentra el 37.4% del revenue y la tasa de recompra aparente es crítica, implementar un flujo automatizado post-compra (D+15 y D+30) que conecte compradores de `Bed & Bath` con ofertas de `Health & Beauty` y viceversa. El solapamiento de perfil demográfico entre estas categorías hace viable una tasa de conversión de cross-sell del 8-12% sin incremento de CAC.
 
 ---
 
-*⚙️ Nota técnica: Validar el cálculo de variación semanal con el equipo de Data Engineering antes de distribuir este reporte externamente.*</div>
+*📌 Próximo paso sugerido: revisión de datos con el equipo de Data Engineering en las próximas 48hs antes de presentar variación semanal a stakeholders.*</div>
   </div>
 
-  <footer>NEXUS BI AGENT · Reporte generado automáticamente · 2026-03-18 11:33</footer>
+  <footer>NEXUS BI AGENT · Reporte generado automáticamente · 2026-03-25 17:53</footer>
 </div>
 
 <script>
